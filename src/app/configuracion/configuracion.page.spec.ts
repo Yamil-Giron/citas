@@ -1,17 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ConfiguracionPage } from './configuracion.page';
+export class ConfiguracionPage {
+  borrarCitasInicio = false;
 
-describe('ConfiguracionPage', () => {
-  let component: ConfiguracionPage;
-  let fixture: ComponentFixture<ConfiguracionPage>;
+  guardarConfiguracion() {
+    localStorage.setItem('borrarCitasInicio', JSON.stringify(this.borrarCitasInicio));
+  }
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ConfiguracionPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  cargarConfiguracion() {
+    const config = localStorage.getItem('borrarCitasInicio');
+    if (config) {
+      this.borrarCitasInicio = JSON.parse(config);
+    }
+  }
+}
