@@ -18,5 +18,24 @@
     <p>No quedan citas para mostrar.</p>
   </ng-template>
 
+  <!-- Botón para refrescar la cita mostrada en el card -->
   <ion-button expand="full" (click)="cargarNuevaCita()">Nueva Cita</ion-button>
+
+  <!-- Botón para consultar todos los datos almacenados -->
+  <ion-button expand="full" (click)="consultarDatos()">Consultar Datos</ion-button>
+
+  <!-- Sección para visualizar los resultados de la consulta -->
+  <div *ngIf="consultaResultados && consultaResultados.length">
+    <ion-list>
+      <ion-item *ngFor="let item of consultaResultados">
+        <ion-label>
+          <h2>{{ item.frase }}</h2>
+          <p>{{ item.autor }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div *ngIf="consultaResultados && !consultaResultados.length">
+    <p>No se encontraron datos.</p>
+  </div>
 </ion-content>
