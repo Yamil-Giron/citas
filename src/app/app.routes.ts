@@ -1,15 +1,15 @@
 import { Routes } from '@angular/router';
-import { TabsPage } from './tabs/tabs.component';
+import { TabsComponent } from './tabs/tabs.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'inicio',
+    redirectTo: '/tabs/inicio',
     pathMatch: 'full',
   },
   {
-    path: '',
-    component: TabsPage, // Crea un componente `TabsPage`
+    path: 'tabs',
+    component: TabsComponent, // Asegúrate de que `TabsComponent` está correctamente definido
     children: [
       { path: 'inicio', loadComponent: () => import('./inicio/inicio.page').then(m => m.InicioPage) },
       { path: 'gestion', loadComponent: () => import('./gestion/gestion.page').then(m => m.GestionPage) },
@@ -17,3 +17,5 @@ export const routes: Routes = [
     ]
   }
 ];
+
+
