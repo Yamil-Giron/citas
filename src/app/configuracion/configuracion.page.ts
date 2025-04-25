@@ -1,7 +1,8 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { Preferences } from '@capacitor/preferences';
 
 @Component({
   selector: 'app-configuracion',
@@ -13,17 +14,21 @@ import { IonicModule } from '@ionic/angular';
 export class ConfiguracionPage {
   borrarCitasInicio = false;
 
-  ngOnInit() {
-    this.cargarConfiguracion();
-  }
-  guardarConfiguracion() {
-    localStorage.setItem('borrarCitasInicio', JSON.stringify(this.borrarCitasInicio));
+  async ngOnInit() {
+    await this.cargarConfiguracion();
   }
 
-  cargarConfiguracion() {
-    const config = localStorage.getItem('borrarCitasInicio');
-    if (config) {
-      this.borrarCitasInicio = JSON.parse(config);
+  async guardarConfiguracion() {
+    await Preferences.set({
+      key: 'borrarCitasInicio',
+      value: JSON.stringify(this.borrarCitasInicio)
+    });
+  }
+
+  async cargarConfiguracion() {
+    const { value } = await Preferences.get({ key: 'borrarCitasInicio' });
+    if (value !== null) {
+      this.borrarCitasInicio = JSON.parse(value);
     }
   }
 }

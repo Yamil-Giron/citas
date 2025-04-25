@@ -5,8 +5,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  
-  <ion-card>
+  <ion-card *ngIf="cita; else sinCitas">
     <ion-card-header>
       <ion-card-title>{{ cita.frase }}</ion-card-title>
     </ion-card-header>
@@ -14,6 +13,10 @@
       <p>- {{ cita.autor }}</p>
     </ion-card-content>
   </ion-card>
+
+  <ng-template #sinCitas>
+    <p>No quedan citas para mostrar.</p>
+  </ng-template>
 
   <ion-button expand="full" (click)="cargarNuevaCita()">Nueva Cita</ion-button>
 </ion-content>

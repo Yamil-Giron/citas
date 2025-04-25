@@ -5,25 +5,55 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <!-- Listado de citas -->
   <ion-list>
-    <ion-item *ngFor="let cita of citas; let i = index">
+    <ion-item *ngFor="let cita of citas">
       <ion-label>
         <h2>{{ cita.frase }}</h2>
         <p>- {{ cita.autor }}</p>
       </ion-label>
-      <ion-button color="danger" (click)="eliminarCita(i)">Eliminar</ion-button>
+      <ion-button color="danger" (click)="eliminarCita(cita)">Eliminar</ion-button>
     </ion-item>
   </ion-list>
 
-  <ion-item>
-    <ion-label position="floating">Nueva Frase</ion-label>
-    <ion-input [(ngModel)]="nuevaFrase"></ion-input>
-  </ion-item>
+  <!-- Formulario con validaciones para agregar nuevas citas -->
+  <form #citaForm="ngForm" (ngSubmit)="agregarCita(citaForm)">
+    <ion-item>
+      <ion-label position="floating">Nueva Frase</ion-label>
+      <ion-input
+        [(ngModel)]="nuevaFrase"
+        name="frase"
+        required
+        minlength="5">
+      </ion-input>
+    </ion-item>
+    <div *ngIf="citaForm.submitted && citaForm.controls['frase']?.errors">
+      <p *ngIf="citaForm.controls['frase']?.errors?.['required']" class="error-message">
+        La frase es obligatoria.
+      </p>
+      <p *ngIf="citaForm.controls['frase']?.errors?.['minlength']" class="error-message">
+        La frase debe tener al menos 5 caracteres.
+      </p>
+    </div>
 
-  <ion-item>
-    <ion-label position="floating">Autor</ion-label>
-    <ion-input [(ngModel)]="nuevoAutor"></ion-input>
-  </ion-item>
+    <ion-item>
+      <ion-label position="floating">Autor</ion-label>
+      <ion-input
+        [(ngModel)]="nuevoAutor"
+        name="autor"
+        required
+        minlength="2">
+      </ion-input>
+    </ion-item>
+    <div *ngIf="citaForm.submitted && citaForm.controls['autor']?.errors">
+      <p *ngIf="citaForm.controls['autor']?.errors?.['required']" class="error-message">
+        El autor es obligatorio.
+      </p>
+      <p *ngIf="citaForm.controls['autor']?.errors?.['minlength']" class="error-message">
+        El autor debe tener al menos 2 caracteres.
+      </p>
+    </div>
 
-  <ion-button expand="full" (click)="agregarCita()">Agregar Cita</ion-button>
+    <ion-button expand="full" type="submit">Agregar Cita</ion-button>
+  </form>
 </ion-content>

@@ -1,23 +1,35 @@
 import { Component, OnInit } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { CitasService } from '../services/citas.service';
-import {  IonHeader, IonContent, IonToolbar, IonTitle, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel } from "@ionic/angular/standalone";
+import { CitasService, Cita } from '../services/citas.service';
+import { Preferences } from '@capacitor/preferences';
 
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
   standalone: true,
-  imports: [IonButton, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonTitle, IonToolbar, IonHeader, IonToolbar, IonTitle, IonContent]
+  imports: [IonicModule, CommonModule]
 })
-export class InicioPage {
-  cita: { frase: string; autor: string } = { frase: '', autor: '' };;
+export class InicioPage implements OnInit {
+  cita: Cita | null = null;
 
-  constructor(private citasService: CitasService) {
-    this.cargarNuevaCita();
+  constructor(private citasService: CitasService) {}
+
+  async ngOnInit() {
+    await this.cargarNuevaCita();
   }
 
-  cargarNuevaCita() {
-    this.cita = this.citasService.obtenerCitaAleatoria();
+  async cargarNuevaCita() {
+    // Consultamos la configuración
+    const { value } = await Preferences.get({ key: 'borrarCitasInicio' });
+    const borrarAutomatico = value ? JSON.parse(value) : false;
+    
+    // Si está activado y hay una cita mostrada, la eliminamos de la DB
+    if (borrarAutomatico && this.cita && this.cita.id != null) {
+      await this.citasService.eliminarCita(this.cita);
+    }
+    // Obtenemos una cita aleatoria; por ejemplo, podemos seleccionar la primera de la lista
+    const todasCitas = await this.citasService.obtenerCitas();
+    this.cita = todasCitas.length ? todasCitas[0] : null;
   }
 }
