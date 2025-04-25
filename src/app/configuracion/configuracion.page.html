@@ -1,14 +1,20 @@
-<ion-header>
+<ion-header [translucent]="false">
   <ion-toolbar>
     <ion-title>Configuración</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
+  <!-- Header que se muestra al colapsar, si se requiere -->
+  <!-- Contenido interactivo -->
   <ion-item>
-    <ion-label>Borrar cita inicial automáticamente</ion-label>
-    <ion-toggle [(ngModel)]="borrarCitasInicio"></ion-toggle>
+    <ion-label>Borrar citas automáticamente</ion-label>
+    <!-- Asegúrate de que cada control con [(ngModel)] tenga un atributo name -->
+    <ion-toggle [(ngModel)]="borrarCitasInicio" name="borrarCitas"></ion-toggle>
   </ion-item>
 
-  <ion-button expand="full" (click)="guardarConfiguracion()">Guardar Configuración</ion-button>
+  <ion-button expand="full" (click)="guardarConfiguracion()">
+    Guardar Configuración
+  </ion-button>
 </ion-content>
+

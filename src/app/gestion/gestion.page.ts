@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
-import { IonHeader, IonList, IonContent, IonItem, IonLabel, IonButton, IonInput, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { CommonModule } from '@angular/common';
 import { CitasService } from '../services/citas.service';
 
 @Component({
   selector: 'app-gestion',
   templateUrl: './gestion.page.html',
-  imports: [IonToolbar, IonTitle, IonInput, IonButton, IonLabel, IonItem, IonContent, IonList, IonHeader, FormsModule, CommonModule]
+  imports: [IonicModule, FormsModule, CommonModule]
 })
 export class GestionPage {
   citas: { frase: string; autor: string }[] = [];
