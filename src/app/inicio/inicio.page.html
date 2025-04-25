@@ -1,13 +1,18 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>inicio</ion-title>
+    <ion-title>Cita del día</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">inicio</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ cita.frase }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>- {{ cita.autor }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="full" (click)="cargarNuevaCita()">Nueva Cita</ion-button>
 </ion-content>
