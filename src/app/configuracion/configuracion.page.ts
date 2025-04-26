@@ -24,7 +24,7 @@ export class ConfiguracionPage {
       value: JSON.stringify(this.borrarCitasInicio)
     });
   }
-
+  
   async cargarConfiguracion() {
     const { value } = await Preferences.get({ key: 'borrarCitasInicio' });
     if (value !== null) {
