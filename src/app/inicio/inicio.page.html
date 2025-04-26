@@ -1,32 +1,43 @@
+<!-- Cabecera de la página con la barra de herramientas y el título -->
 <ion-header>
   <ion-toolbar>
+    <!-- Título que se muestra en la cabecera "Cita del día" -->
     <ion-title>Cita del día</ion-title>
   </ion-toolbar>
 </ion-header>
 
+<!-- Contenido principal de la página con padding para mejorar la distribución visual -->
 <ion-content class="ion-padding">
+  <!-- Se muestra la cita actual si la variable 'cita' tiene datos; 
+       en caso contrario, se renderiza la plantilla 'sinCitas' -->
   <ion-card *ngIf="cita; else sinCitas">
+    <!-- Encabezado del card que muestra la frase principal de la cita -->
     <ion-card-header>
       <ion-card-title>{{ cita.frase }}</ion-card-title>
     </ion-card-header>
+    <!-- Contenido del card que muestra el autor de la cita -->
     <ion-card-content>
       <p>- {{ cita.autor }}</p>
     </ion-card-content>
   </ion-card>
 
+  <!-- Plantilla alternativa que se muestra si 'cita' es null o no tiene información -->
   <ng-template #sinCitas>
     <p>No quedan citas para mostrar.</p>
   </ng-template>
 
-  <!-- Botón para refrescar la cita mostrada en el card -->
+  <!-- Botón que refresca la cita actual, llamando al método 'cargarNuevaCita()' al hacer clic.
+       Utiliza 'expand="full"' para ocupar todo el ancho disponible -->
   <ion-button expand="full" (click)="cargarNuevaCita()">Nueva Cita</ion-button>
 
-  <!-- Botón para consultar todos los datos almacenados -->
+  <!-- Botón para consultar todos los datos almacenados, 
+       ejecutando el método 'consultarDatos()' al seleccionarlo -->
   <ion-button expand="full" (click)="consultarDatos()">Consultar Datos</ion-button>
 
-  <!-- Sección para visualizar los resultados de la consulta -->
+  <!-- Sección que visualiza los resultados de la consulta, si existen datos en 'consultaResultados' -->
   <div *ngIf="consultaResultados && consultaResultados.length">
     <ion-list>
+      <!-- Se itera sobre el arreglo 'consultaResultados' para mostrar cada cita en un ion-item -->
       <ion-item *ngFor="let item of consultaResultados">
         <ion-label>
           <h2>{{ item.frase }}</h2>
@@ -35,6 +46,8 @@
       </ion-item>
     </ion-list>
   </div>
+  
+  <!-- Si 'consultaResultados' está definido pero no tiene elementos, se muestra un mensaje informativo -->
   <div *ngIf="consultaResultados && !consultaResultados.length">
     <p>No se encontraron datos.</p>
   </div>

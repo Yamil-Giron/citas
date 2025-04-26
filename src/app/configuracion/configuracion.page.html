@@ -1,17 +1,26 @@
-<!--Parte visual de COnfiguración page-->
+<!-- Parte visual de la página de Configuración -->
 <ion-header>
+  <!-- Cabecera superior de la página -->
   <ion-toolbar>
+    <!-- Título que se muestra en la barra de herramientas -->
     <ion-title>Configuración</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
+  <!-- Contenedor principal con padding para separar los elementos de la interfaz -->
   <ion-item>
+    <!-- Elemento que agrupa la etiqueta y el control del toggle -->
     <ion-label>Borrar citas automáticamente</ion-label>
+    <!-- Toggle que permite activar o desactivar la opción.
+         Se enlaza bidireccionalmente con la variable "borrarCitasInicio" definida en el componente TypeScript -->
     <ion-toggle [(ngModel)]="borrarCitasInicio" name="borrarCitas"></ion-toggle>
   </ion-item>
 
+  <!-- Botón de acción: Al hacer clic, se ejecuta el método "guardarConfiguracion()" del componente,
+       lo que guarda la configuración actual. El atributo "expand='full'" hace que el botón ocupe todo el ancho disponible -->
   <ion-button expand="full" (click)="guardarConfiguracion()">
     Guardar Configuración
   </ion-button>
 </ion-content>
+

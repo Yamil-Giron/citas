@@ -1,25 +1,36 @@
+<!-- Cabecera de la página con barra de herramientas y título -->
 <ion-header>
   <ion-toolbar>
+    <!-- Título de la página -->
     <ion-title>Gestionar Citas</ion-title>
   </ion-toolbar>
 </ion-header>
 
+<!-- Contenido principal de la página, se añade padding para mayor espaciamiento -->
 <ion-content class="ion-padding">
-  <!-- Listado de citas -->
+  <!-- Sección que muestra el listado de citas -->
   <ion-list>
+    <!-- Se itera sobre el arreglo 'citas' usando *ngFor para generar un ion-item por cada cita -->
     <ion-item *ngFor="let cita of citas">
       <ion-label>
+        <!-- Se muestra la frase principal de la cita -->
         <h2>{{ cita.frase }}</h2>
+        <!-- Se muestra el autor de la cita, precedido de un guion -->
         <p>- {{ cita.autor }}</p>
       </ion-label>
+      <!-- Botón con color de alerta (danger) que al hacer clic ejecuta la función eliminarCita pasando la cita actual -->
       <ion-button color="danger" (click)="eliminarCita(cita)">Eliminar</ion-button>
     </ion-item>
   </ion-list>
 
-  <!-- Formulario con validaciones para agregar nuevas citas -->
+  <!-- Formulario para agregar nuevas citas, se usan validaciones con 'ngForm' -->
   <form #citaForm="ngForm" (ngSubmit)="agregarCita(citaForm)">
+    <!-- Campo para ingresar la nueva frase de la cita -->
     <ion-item>
+      <!-- Etiqueta flotante que se traslada al momento de escribir -->
       <ion-label position="floating">Nueva Frase</ion-label>
+      <!-- Input liga bidireccionalmente la variable 'nuevaFrase'
+           Se establece como requerido y debe tener al menos 5 caracteres -->
       <ion-input
         [(ngModel)]="nuevaFrase"
         name="frase"
@@ -27,17 +38,25 @@
         minlength="5">
       </ion-input>
     </ion-item>
+    
+    <!-- Sección de mensajes de error para el campo 'frase' que se muestra si el formulario fue enviado y existen errores -->
     <div *ngIf="citaForm.submitted && citaForm.controls['frase']?.errors">
+      <!-- Mensaje de error cuando el campo está vacío -->
       <p *ngIf="citaForm.controls['frase']?.errors?.['required']" class="error-message">
         La frase es obligatoria.
       </p>
+      <!-- Mensaje de error cuando la longitud es menor a 5 caracteres -->
       <p *ngIf="citaForm.controls['frase']?.errors?.['minlength']" class="error-message">
         La frase debe tener al menos 5 caracteres.
       </p>
     </div>
 
+    <!-- Campo para ingresar el autor de la cita -->
     <ion-item>
+      <!-- Etiqueta flotante para el autor -->
       <ion-label position="floating">Autor</ion-label>
+      <!-- Input ligado a la variable 'nuevoAutor'
+           Se establece como requerido y debe tener al menos 2 caracteres -->
       <ion-input
         [(ngModel)]="nuevoAutor"
         name="autor"
@@ -45,15 +64,21 @@
         minlength="2">
       </ion-input>
     </ion-item>
+    
+    <!-- Sección de mensajes de error para el campo 'autor' -->
     <div *ngIf="citaForm.submitted && citaForm.controls['autor']?.errors">
+      <!-- Error por campo vacío -->
       <p *ngIf="citaForm.controls['autor']?.errors?.['required']" class="error-message">
         El autor es obligatorio.
       </p>
+      <!-- Error por no cumplir el mínimo de 2 caracteres -->
       <p *ngIf="citaForm.controls['autor']?.errors?.['minlength']" class="error-message">
         El autor debe tener al menos 2 caracteres.
       </p>
     </div>
 
+    <!-- Botón para enviar el formulario y agregar la nueva cita.
+         El atributo expand="full" hace que el botón ocupe todo el ancho disponible -->
     <ion-button expand="full" type="submit">Agregar Cita</ion-button>
   </form>
 </ion-content>

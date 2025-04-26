@@ -1,21 +1,38 @@
+<!-- Contenedor raíz de la aplicación Ionic -->
 <ion-app>
+  <!-- ion-split-pane: Permite una distribución de pantalla dividida, ideal para tener un menú lateral y el contenido principal -->
   <ion-split-pane contentId="main-content">
+    
+    <!-- ion-menu: Elemento que define el menú lateral.
+         - "side='start'" indica que el menú se muestra al lado izquierdo.
+         - "contentId='main-content'" enlaza el menú con el contenedor principal donde se renderiza la vista -->
     <ion-menu side="start" contentId="main-content">
+      <!-- Encabezado del menú -->
       <ion-header>
         <ion-toolbar>
+          <!-- Título del menú -->
           <ion-title>Menú</ion-title>
         </ion-toolbar>
       </ion-header>
+      <!-- Contenido del menú -->
       <ion-content>
+        <!-- Lista de elementos que actúan como navegación -->
         <ion-list>
+          <!-- ion-item configurado como botón que navega a la ruta '/inicio' -->
           <ion-item button routerLink="/inicio">Inicio</ion-item>
+          <!-- ion-item configurado como botón que navega a la ruta '/gestion' -->
           <ion-item button routerLink="/gestion">Gestionar</ion-item>
+          <!-- ion-item configurado como botón que navega a la ruta '/configuracion' -->
           <ion-item button routerLink="/configuracion">Configuración</ion-item>
         </ion-list>
       </ion-content>
     </ion-menu>
 
+    <!-- Contenedor principal de la aplicación.
+         Se asigna la clase "ion-page" y el id "main-content" para vincularlo con el menú (contentId) -->
     <div class="ion-page" id="main-content">
+      <!-- ion-router-outlet: Espacio reservado donde se cargarán los componentes
+           correspondientes a la ruta activa. Esto permite la navegación dinámica -->
       <ion-router-outlet></ion-router-outlet>
     </div>
   </ion-split-pane>
