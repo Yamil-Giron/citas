@@ -28,7 +28,7 @@ export class GestionPage {
 
   async eliminarCita(cita: Cita) {
     await this.citasService.eliminarCita(cita);
-    await this.cargarCitas(); // Refrescar la lista luego de eliminar
+    await this.cargarCitas();
   }
 
   async agregarCita(form: NgForm) {
